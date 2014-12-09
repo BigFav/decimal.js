@@ -70,16 +70,16 @@
 
 
     /*
-     *  n & n = n
-     *  n & 0 = 0
-     *  n & -1 = n
-     *  N & n = N
-     *  I & I = I
+     *   n &  n =  n
+     *   n &  0 =  0
+     *   n & -1 =  n
+     *   N &  n =  N
+     *   I &  I =  I
      *  -I & -I = -I
-     *  I & -I = 0
-     *  I & n = n
-     *  I & -n = I
-     *  -I & n = 0
+     *   I & -I =  0
+     *   I &  n =  n
+     *   I & -n =  I
+     *  -I &  n =  0
      *  -I & -n = -I
      *
      * Return a new Decimal whose value is the value of this Decimal & Decimal(n).
@@ -382,13 +382,13 @@
 
     /*
      *  n << -n = N
-     *  n << N = N
-     *  N << n = N
-     *  I << I = N
-     *  n << 0 = n
-     *  I << n = I
-     *  n << I = I
-     *  0 << n = 0
+     *  n <<  N = N
+     *  N <<  n = N
+     *  I <<  I = N
+     *  n <<  0 = n
+     *  I <<  n = I
+     *  n <<  I = I
+     *  0 <<  n = 0
      *
      * Return a new Decimal whose value is this Decimal << n.
      *
@@ -401,7 +401,7 @@
         if (typeof n === 'object' || !isFinite(n) || +n >= 50) {
             n = new Decimal(n)['trunc']();
             nNum = n['toNumber']();
-            if (POWERS_OF_TWO[nNum] !== undefined) {
+            if (POWERS_OF_TWO[nNum]) {
                 twoPowN = POWERS_OF_TWO[nNum];
             }
         } else {
@@ -612,21 +612,21 @@
 
 
     /*
-     *  n - 0 = n
-     *  n - N = N
+     *  n - 0 =  n
+     *  n - N =  N
      *  n - I = -I
      *  0 - n = -n
-     *  0 - 0 = 0
-     *  0 - N = N
+     *  0 - 0 =  0
+     *  0 - N =  N
      *  0 - I = -I
-     *  N - n = N
-     *  N - 0 = N
-     *  N - N = N
-     *  N - I = N
-     *  I - n = I
-     *  I - 0 = I
-     *  I - N = N
-     *  I - I = N
+     *  N - n =  N
+     *  N - 0 =  N
+     *  N - N =  N
+     *  N - I =  N
+     *  I - n =  I
+     *  I - 0 =  I
+     *  I - N =  N
+     *  I - I =  N
      *
      * Return a new Decimal whose value is the value of this Decimal minus Decimal(y, b), rounded
      * to precision significant digits using rounding mode rounding.
@@ -896,16 +896,16 @@
 
 
     /*
-     *  N | n = N
-     *  n | 0 = n
-     *  n | -1 = -1
-     *  n | n = n
-     *  I | I = I
+     *   N |  n =  N
+     *   n |  0 =  n
+     *   n | -1 = -1
+     *   n |  n =  n
+     *   I |  I =  I
      *  -I | -I = -I
-     *  I | -n = -1
-     *  I | -I = -1
-     *  I | n = I
-     *  -I | n = -I
+     *   I | -n = -1
+     *   I | -I = -1
+     *   I |  n =  I
+     *  -I |  n = -I
      *  -I | -n = -n
      *
      * Return a new Decimal whose value is the value of this Decimal | Decimal(n).
@@ -1104,17 +1104,17 @@
 
 
     /*
-     *  n >> -n = N
-     *  n >> N = N
-     *  N >> n = N
-     *  I >> I = N
-     *  n >> 0 = n
-     *  I >> n = I
-     *  -I >> n = -I
-     *  -I >> I = -I
-     *  n >> I = I
-     *  -n >> I = -1
-     *  0 >> n = 0
+     *   n >> -n =  N
+     *   n >>  N =  N
+     *   N >>  n =  N
+     *   I >>  I =  N
+     *   n >>  0 =  n
+     *   I >>  n =  I
+     *  -I >>  n = -I
+     *  -I >>  I = -I
+     *   n >>  I =  I
+     *  -n >>  I = -1
+     *   0 >>  n =  0
      *
      * Return a new Decimal whose value is this Decimal >> n, rounded to precision
      * significant digits using rounding mode rounding.
@@ -1128,7 +1128,7 @@
         if (typeof n === 'object' || !isFinite(n) || +n >= 50) {
             n = new Decimal(n)['trunc']();
             nNum = n['toNumber']();
-            if (POWERS_OF_TWO[nNum] !== undefined) {
+            if (POWERS_OF_TWO[nNum]) {
                 twoPowN = POWERS_OF_TWO[nNum];
             }
         } else {
@@ -2087,15 +2087,15 @@
 
 
     /*
-     *  N ^ n = N
-     *  n ^ 0 = n
-     *  n ^ n = 0
-     *  n ^ -1 = ~n
-     *  I ^ n = I
-     *  I ^ -n = -I
-     *  I ^ -I = -1
-     *  -I ^ n = -I
-     *  -I ^ -n = I
+     *   N ^  n =  N
+     *   n ^  0 =  n
+     *   n ^  n =  0
+     *   n ^ -1 = ~n
+     *   I ^  n =  I
+     *   I ^ -n = -I
+     *   I ^ -I = -1
+     *  -I ^  n = -I
+     *  -I ^ -n =  I
      *
      * Return a new Decimal whose value is the value of this Decimal ^ Decimal(n).
      *
@@ -2176,15 +2176,9 @@
 
 
     function bitwise(x, y, func) {
-        var Decimal = x['constructor'];
-
-        // Either NaN?
-        if (!x['s'] || !y['s']) {
-            return new Decimal(NaN);
-        }
-
-        var tmpExternal = external;
-        external = false;
+        var Decimal = x['constructor'],
+            tmpExternal = external;
+            external = false;
 
         var xBits, yBits,
             xSign = +(x['s'] < 0),
@@ -2230,7 +2224,7 @@
             if (func(minBits[--shortLen], maxBits[--longLen]) == expFuncVal) {
                 outVal = outVal['plus'](twoPower);
             }
-            if (POWERS_OF_TWO[++i] !== undefined) {
+            if (POWERS_OF_TWO[++i]) {
                 twoPower = POWERS_OF_TWO[i];
             } else {
                 twoPower = twoPower['times'](two);
@@ -2241,7 +2235,7 @@
             if (func(minSign, maxBits[--longLen]) == expFuncVal) {
                 outVal = outVal['plus'](twoPower);
             }
-            if (POWERS_OF_TWO[++i] !== undefined) {
+            if (POWERS_OF_TWO[++i]) {
                 twoPower = POWERS_OF_TWO[i];
             } else {
                 twoPower = twoPower['times'](two);
